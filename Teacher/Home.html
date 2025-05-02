@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            background-color: #f9fafb;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="min-h-screen">
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div class="flex items-center justify-between px-6 py-3">
+            <div class="flex items-center gap-8">
+                <a href="#" class="font-['Pacifico'] text-primary text-2xl">logo</a>
+                <nav class="flex items-center space-x-6">
+                    <a href="#" class="text-primary font-medium border-b-2 border-primary px-1 py-3">Dashboard</a>
+                    <a href="#" class="text-gray-600 hover:text-primary px-1 py-3">Attendance Reports</a>
+                    <a href="#" class="text-gray-600 hover:text-primary px-1 py-3">Grading System</a>
+                    <a href="#" class="text-gray-600 hover:text-primary px-1 py-3">Settings</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 flex items-center justify-center relative cursor-pointer" id="notification-icon">
+                    <i class="ri-notification-3-line text-gray-600"></i>
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                    <div id="notification-dropdown" class="absolute right-0 top-full mt-2 w-80 bg-white rounded shadow-lg z-20 hidden">
+                        <div class="p-4 border-b border-gray-100">
+                            <h3 class="font-medium text-gray-800">Notifications</h3>
+                        </div>
+                        <div class="max-h-80 overflow-y-auto">
+                            <div class="p-4 border-b border-gray-100 hover:bg-gray-50">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                                        <i class="ri-mail-line"></i>
+                </div>
+                                    <div>
+                                        <p class="text-sm text-gray-800">New message from <span class="font-medium">Daniel Wilson</span> about today's class</p>
+                                        <p class="text-xs text-gray-500 mt-1">10 minutes ago</p>
+                    </div>
+                </div>
+            </div>
+                            <div class="p-4 border-b border-gray-100 hover:bg-gray-50">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600 flex-shrink-0">
+                                        <i class="ri-error-warning-line"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-800">Attendance report for <span class="font-medium">Database Systems</span> is due today</p>
+                                        <p class="text-xs text-gray-500 mt-1">1 hour ago</p>
+                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border-b border-gray-100 hover:bg-gray-50">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 flex-shrink-0">
+                                        <i class="ri-calendar-check-line"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-800">Faculty meeting scheduled for tomorrow at 2:00 PM</p>
+                                        <p class="text-xs text-gray-500 mt-1">Yesterday</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3 text-center">
+                            <a href="#" class="text-sm text-primary hover:underline">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 relative cursor-pointer" id="profile-icon">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-primary font-medium">
+                        <i class="ri-user-line"></i>
+                    </div>
+                    <span class="text-gray-800 font-medium">Dr. Michael Anderson</span>
+                    <div id="profile-dropdown" class="absolute right-0 top-full mt-2 w-60 bg-white rounded shadow-lg z-20 hidden">
+                        <div class="p-4 border-b border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-primary font-medium">
+                                    <i class="ri-user-line"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-800">Dr. Michael Anderson</div>
+                                    <div class="text-sm text-gray-500">Computer Science Department</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-2">
+                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
+                                <div class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-user-settings-line"></i>
+                                </div>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
+                                <div class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-settings-3-line"></i>
+                                </div>
+                                <span>Account Settings</span>
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
+                                <div class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-question-line"></i>
+                                </div>
+                                <span>Help & Support</span>
+                            </a>
+                        </div>
+                        <div class="p-3 border-t border-gray-100">
+                            <a href="#" class="flex items-center gap-2 justify-center px-4 py-2 text-red-600 hover:bg-red-50 rounded">
+                                <div class="w-5 h-5 flex items-center justify-center">
+                                    <i class="ri-logout-box-line"></i>
+                                </div>
+                                <span>Sign Out</span>
+                            </a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="flex-1">
+            <div class="bg-gradient-to-r from-white to-blue-50 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-4xl font-bold text-gray-900 mb-2" id="greeting"></h2>
+                        <p class="text-xl text-gray-600" id="currentDate"></p>
+                    </div>
+                </div>
+            </div>
+            </header>
+            <main class="flex-1 bg-gray-50 p-4 sm:p-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="bg-white rounded-lg p-6 mb-6 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900">Current Class</h3>
+                                <p class="text-2xl font-bold text-primary mt-2">Advanced Database Systems</p>
+                                <div class="flex items-center space-x-4 mt-2">
+                                    <div class="flex items-center text-gray-600">
+                                        <i class="ri-time-line w-5 h-5 flex items-center justify-center mr-2"></i>
+                                        <span>10:30 AM - 12:00 PM</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-400">
+                                        <i class="ri-map-pin-line w-5 h-5 flex items-center justify-center mr-2"></i>
+                                        <span>Room 301, Computer Science Building</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-button"
+                                onclick="location.href='Attendance_marking.html'">
+                                Take Attendance
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-8">
+                        <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-blue-500 bg-opacity-20 rounded-full">
+                                    <i
+                                        class="ri-calendar-line text-blue-500 w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-gray-600">Today's Schedule</h4>
+                                    <p class="text-2xl font-bold text-gray-900">3 Classes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-yellow-500 bg-opacity-20 rounded-full">
+                                    <i
+                                        class="ri-time-line text-yellow-500 w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-gray-600">Pending Attendance</h4>
+                                    <p class="text-2xl font-bold text-gray-900">1 Class</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-red-500 bg-opacity-20 rounded-full">
+                                    <i class="ri-alert-line text-red-500 w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-gray-400">Low Attendance</h4>
+                                    <p class="text-2xl font-bold text-white">5 Students</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-green-500 bg-opacity-20 rounded-full">
+                                    <i
+                                        class="ri-file-list-line text-green-500 w-6 h-6 flex items-center justify-center"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-gray-400">Leave Requests</h4>
+                                    <p class="text-2xl font-bold text-white">2 Pending</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button
+                                    class="flex items-center justify-center p-4 bg-gray-100 rounded-lg hover:bg-gray-200 text-gray-900"
+                                    onclick="window.location.href='Attendance_marking.html'">
+                                    <i class="ri-calendar-check-line w-6 h-6 flex items-center justify-center mr-2"></i>
+                                    Take Attendance
+                                </button>
+                                <button
+                                    class="flex items-center justify-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 text-white">
+                                    <i class="ri-upload-line w-6 h-6 flex items-center justify-center mr-2"></i>
+                                    Upload Attendance
+                                </button>
+                                <button
+                                    class="flex items-center justify-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 text-white">
+                                    <i class="ri-file-chart-line w-6 h-6 flex items-center justify-center mr-2"></i>
+                                    Generate Reports
+                                </button>
+                                <button
+                                    class="flex items-center justify-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 text-white">
+                                    <i class="ri-mail-send-line w-6 h-6 flex items-center justify-center mr-2"></i>
+                                    Send Reminders
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Upcoming Classes</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="text-gray-900 font-medium">Data Structures</h4>
+                                        <p class="text-gray-600 text-sm">CS-201 • Room 302</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-gray-900">2:00 PM</p>
+                                        <p class="text-gray-600 text-sm">Today</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="text-gray-900 font-medium">Algorithm Analysis</h4>
+                                        <p class="text-gray-600 text-sm">CS-301 • Room 405</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-gray-900">4:00 PM</p>
+                                        <p class="text-gray-600 text-sm">Today</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+    </div>
+    <script>
+        // Toggle notification dropdown
+        document.getElementById('notification-icon').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('notification-dropdown');
+            dropdown.classList.toggle('hidden');
+            document.getElementById('profile-dropdown').classList.add('hidden');
+        });
+
+        // Toggle profile dropdown
+        document.getElementById('profile-icon').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('profile-dropdown');
+            dropdown.classList.toggle('hidden');
+            document.getElementById('notification-dropdown').classList.add('hidden');
+            });
+
+        // Close dropdowns when clicking elsewhere
+        document.addEventListener('click', function() {
+            document.getElementById('notification-dropdown').classList.add('hidden');
+            document.getElementById('profile-dropdown').classList.add('hidden');
+        });
+
+        // Update greeting and date
+            function updateGreeting() {
+                const hour = new Date().getHours();
+                let greeting = '';
+                if (hour < 12) greeting = 'Good morning';
+                else if (hour < 18) greeting = 'Good afternoon';
+                else greeting = 'Good evening';
+            document.getElementById('greeting').textContent = `${greeting}, Dr. Anderson`;
+            }
+
+            function updateCurrentDate() {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const currentDate = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('currentDate').textContent = currentDate;
+            }
+
+            updateGreeting();
+            updateCurrentDate();
+    </script>
+</body>
+
+</html>

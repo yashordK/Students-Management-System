@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script>
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: { primary: '#50E3C2', secondary: '#8257E6' },
+                        borderRadius: { 'button': '8px' }
+                    }
+                }
+            };
+        }
+    </script>
+    <style>
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 26, 0.8);
+        }
+        .notification-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.95); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+
+<body class="bg-[#1A1A1A] text-white min-h-screen">
+    <nav class="fixed top-0 w-full glass-effect z-50 px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-['Pacifico']">logo</div>
+        <div class="flex items-center space-x-8">
+            <a href="../Student/Dashboard2.html" class="text-[#50E3C2]">Home</a>
+            <a href="../Student/Reports.html" class="hover:text-primary">Reports</a>
+            <a href="../Student/Grades.html" class="hover:text-primary">Grades</a>
+            <a href="../Student/Settings.html" class="hover:text-primary">Settings</a>
+            <div class="relative cursor-pointer" id="notificationBtn">
+                <i class="ri-notification-3-line text-xl"></i>
+                <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full notification-dot"></span>
+            </div>
+            <div class="relative cursor-pointer" id="profileBtn">
+                <i class="ri-user-line text-xl"></i>
+            </div>
+        </div>
+    </nav>
+    <main class="container mx-auto px-6 pt-24">
+        <section class="py-16">
+            <h1 class="text-5xl font-bold mb-6">Welcome Back, Yashord King</h1>
+            <p class="text-gray-400 mb-8">Student ID: ST2025031</p>
+        </section>
+    </main>
+    <footer class="bg-[#232323] mt-16 p-6 text-center text-gray-400">© 2025 Student Attendance Portal. All rights reserved.</footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const mockData = {
+                notifications: [
+                    { message: "Your attendance for Advanced Mathematics has been marked", time: "2 hours ago" },
+                    { message: "Reminder: Physics Lab at 2:00 PM today", time: "3 hours ago" },
+                    { message: "Your attendance report for last week is ready", time: "1 day ago" }
+                ],
+                profile: { name: "Yashord King", id: "ST2025031", department: "Computer Science", year: "3rd Year" }
+            };
+            function createPopup(content) {
+                const popup = document.createElement("div");
+                popup.className = "fixed top-20 right-6 w-80 bg-[#232323] rounded-lg shadow-lg z-50 p-4";
+                popup.innerHTML = content;
+                document.body.appendChild(popup);
+                document.addEventListener("click", function removePopup(e) {
+                    if (!popup.contains(e.target)) {
+                        popup.remove();
+                        document.removeEventListener("click", removePopup);
+                    }
+                });
+            }
+            document.getElementById("notificationBtn").addEventListener("click", () => {
+                createPopup(`<h3 class='font-semibold mb-4'>Notifications</h3>` +
+                    mockData.notifications.map(n => `<div class='border-b border-gray-700 py-3'><p class='text-sm'>${n.message}</p><p class='text-xs text-gray-400 mt-1'>${n.time}</p></div>`).join(''));
+            });
+            document.getElementById("profileBtn").addEventListener("click", () => {
+                createPopup(`<div class='text-center mb-4'><div class='w-20 h-20 mx-auto bg-[#50E3C2] rounded-full flex items-center justify-center mb-3'><i class='ri-user-line text-3xl'></i></div><h3 class='font-semibold'>${mockData.profile.name}</h3><p class='text-sm text-gray-400'>${mockData.profile.id}</p></div><div class='space-y-2'><p class='text-sm'>Department: ${mockData.profile.department}</p><p class='text-sm'>Year: ${mockData.profile.year}</p></div><button class='w-full mt-4 bg-red-500 text-white py-2 rounded-button hover:bg-red-600 transition-colors'>Logout</button>`);
+            });
+        });
+    </script>
+</body>
+</html>

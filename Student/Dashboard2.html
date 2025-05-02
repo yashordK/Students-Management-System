@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#50E3C2', secondary: '#8257E6' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 26, 0.8);
+        }
+
+        .notification-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(0.95);
+            }
+        }
+
+        .circular-progress {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-[#1A1A1A] text-white min-h-screen">
+    <nav class="fixed top-0 w-full glass-effect z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-['Pacifico'] text-white">logo</div>
+                <div class="flex items-center space-x-8">
+                    <a href="..\Student\Dashboard2.html" class="text-[#50E3C2] transition-colors">Home</a>
+                    <a href="..\Student\Reports.html" class="hover:text-primary transition-colors">Reports</a>
+                    <a href="..\Student\Grades.html" class="hover:text-primary transition-colors">Grades</a>
+                    <a href="..\Student\Settings.html" class="hover:text-primary transition-colors">Settings</a>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative cursor-pointer" id="notificationBtn">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-notification-3-line text-xl"></i>
+                            </div>
+                            <div class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full notification-dot"></div>
+                        </div>
+                        <div class="relative cursor-pointer" id="profileBtn">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-user-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="container mx-auto px-6 pt-24">
+        <section class="py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl font-bold mb-6">Welcome Back,<br>Yashord King</h1>
+                    <p class="text-gray-400 mb-8">Student ID: ST2025031</p>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="bg-[#232323] p-6 rounded-lg">
+                            <h3 class="text-2xl font-bold text-[#50E3C2]">92%</h3>
+                            <p class="text-gray-400">Attendance</p>
+                        </div>
+                        <div class="bg-[#232323] p-6 rounded-lg">
+                            <h3 class="text-2xl font-bold text-secondary">Present</h3>
+                            <p class="text-gray-400">Today</p>
+                        </div>
+                        <div class="bg-[#232323] p-6 rounded-lg">
+                            <h3 class="text-2xl font-bold text-[#50E3C2]">3</h3>
+                            <p class="text-gray-400">Classes Today</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative h-[400px]">
+                    <img src="https://static.readdy.ai/image/776b62ebe1046a4955b2942b17db192e/89285075cbcad6b031c527447323ed1b.webp"
+                        class="w-full h-full object-cover rounded-lg" alt="Student Workspace">
+                </div>
+            </div>
+        </section>
+        <section class="py-16">
+            <h2 class="text-3xl font-bold mb-8">Recent Attendance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-[#232323] p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold">Today's Schedule</h3>
+                        <span class="text-[#50E3C2]">March 20, 2025</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-lg">
+                            <div>
+                                <h4 class="font-semibold">Advanced Mathematics</h4>
+                                <p class="text-gray-400">09:00 AM - 10:30 AM</p>
+                            </div>
+                            <span class="text-green-500">Present</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-lg">
+                            <div>
+                                <h4 class="font-semibold">Computer Science</h4>
+                                <p class="text-gray-400">11:00 AM - 12:30 PM</p>
+                            </div>
+                            <span class="text-green-500">Present</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-lg">
+                            <div>
+                                <h4 class="font-semibold">Physics Lab</h4>
+                                <p class="text-gray-400">02:00 PM - 03:30 PM</p>
+                            </div>
+                            <span class="text-gray-400">Upcoming</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[#232323] p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-6">Attendance Overview</h3>
+                    <div class="flex items-center justify-center" id="attendanceChart"></div>
+                    <div class="mt-8">
+                        <h4 class="text-lg font-semibold mb-4">Monthly Progress</h4>
+                        <div id="progressChart" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-[#232323] mt-16">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Academic Calendar</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Course Schedule</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Student Resources</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">Email: support@university.edu</li>
+                        <li class="text-gray-400">Phone: (555) 123-4567</li>
+                        <li class="text-gray-400">Address: 123 University Ave</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="ri-facebook-fill text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="ri-twitter-fill text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="ri-instagram-fill text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                © 2025 Student Attendance Portal. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+        const mockData = {
+            notifications: [
+                { id: 1, message: "Your attendance for Advanced Mathematics has been marked", time: "2 hours ago" },
+                { id: 2, message: "Reminder: Physics Lab at 2:00 PM today", time: "3 hours ago" },
+                { id: 3, message: "Your attendance report for last week is ready", time: "1 day ago" }
+            ],
+            profile: {
+                name: "Yashord King",
+                id: "ST2025031",
+                department: "Computer Science",
+                year: "3rd Year"
+            }
+        };
+        document.getElementById('notificationBtn').addEventListener('click', function () {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-6 w-80 bg-[#232323] rounded-lg shadow-lg z-50 p-4';
+            notification.innerHTML = `
+<h3 class="font-semibold mb-4">Notifications</h3>
+${mockData.notifications.map(n => `
+<div class="border-b border-gray-700 py-3">
+<p class="text-sm">${n.message}</p>
+<p class="text-xs text-gray-400 mt-1">${n.time}</p>
+</div>
+`).join('')}
+`;
+            document.body.appendChild(notification);
+            document.addEventListener('click', function removeNotification(e) {
+                if (!notification.contains(e.target) && !document.getElementById('notificationBtn').contains(e.target)) {
+                    notification.remove();
+                    document.removeEventListener('click', removeNotification);
+                }
+            });
+        });
+        document.getElementById('profileBtn').addEventListener('click', function () {
+            const profile = document.createElement('div');
+            profile.className = 'fixed top-20 right-6 w-64 bg-[#232323] rounded-lg shadow-lg z-50 p-4';
+            profile.innerHTML = `
+<div class="text-center mb-4">
+<div class="w-20 h-20 mx-auto bg-[#50E3C2] rounded-full flex items-center justify-center mb-3">
+<i class="ri-user-line text-3xl"></i>
+</div>
+<h3 class="font-semibold">${mockData.profile.name}</h3>
+<p class="text-sm text-gray-400">${mockData.profile.id}</p>
+</div>
+<div class="space-y-2">
+<p class="text-sm">Department: ${mockData.profile.department}</p>
+<p class="text-sm">Year: ${mockData.profile.year}</p>
+</div>
+<button class="w-full mt-4 bg-red-500 text-white py-2 rounded-button hover:bg-red-600 transition-colors">
+Logout
+</button>
+`;
+            document.body.appendChild(profile);
+            document.addEventListener('click', function removeProfile(e) {
+                if (!profile.contains(e.target) && !document.getElementById('profileBtn').contains(e.target)) {
+                    profile.remove();
+                    document.removeEventListener('click', removeProfile);
+                }
+            });
+        });
+        const chart = echarts.init(document.getElementById('attendanceChart'));
+        const option = {
+            animation: false,
+            tooltip: {
+                trigger: 'item'
+            },
+            series: [{
+                name: 'Attendance',
+                type: 'pie',
+                radius: ['60%', '80%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#1A1A1A',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false
+                },
+                emphasis: {
+                    label: {
+                        show: false
+                    }
+                },
+                data: [
+                    { value: 92, name: 'Present', itemStyle: { color: 'rgba(87, 181, 231, 1)' } },
+                    { value: 8, name: 'Absent', itemStyle: { color: 'rgba(252, 141, 98, 1)' } }
+                ]
+            }]
+        };
+        chart.setOption(option);
+        const progressChart = echarts.init(document.getElementById('progressChart'));
+        const progressOption = {
+            animation: false,
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                textStyle: {
+                    color: '#1f2937'
+                }
+            },
+            grid: {
+                top: 10,
+                right: 10,
+                bottom: 20,
+                left: 40,
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                axisLine: {
+                    lineStyle: {
+                        color: '#666'
+                    }
+                },
+                axisLabel: {
+                    color: '#999'
+                }
+            },
+            yAxis: {
+                type: 'value',
+                min: 0,
+                max: 100,
+                axisLine: {
+                    lineStyle: {
+                        color: '#666'
+                    }
+                },
+                axisLabel: {
+                    color: '#999',
+                    formatter: '{value}%'
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#333'
+                    }
+                }
+            },
+            series: [{
+                name: 'Attendance Rate',
+                type: 'line',
+                smooth: true,
+                symbol: 'none',
+                lineStyle: {
+                    width: 3,
+                    color: 'rgba(87, 181, 231, 1)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(87, 181, 231, 0.2)'
+                    }, {
+                        offset: 1,
+                        color: 'rgba(87, 181, 231, 0.0)'
+                    }])
+                },
+                data: [88, 85, 90, 92, 89, 92]
+            }]
+        };
+        progressChart.setOption(progressOption);
+        window.addEventListener('resize', function () {
+            chart.resize();
+            progressChart.resize();
+        });
+        const studentId = "ST2025031"; // Ideally, get this from authentication/session
+
+        async function fetchStudentData() {
+            try {
+                const res = await fetch(`/api/student/${studentId}`);
+                const data = await res.json();
+
+                document.querySelector("h1").innerHTML = `Welcome Back,<br>${data.name}`;
+                document.querySelector("p.text-gray-400").innerText = `Student ID: ${data.student_id}`;
+                document.querySelector(".text-[#50E3C2]").innerText = `${data.attendance}%`;
+            } catch (error) {
+                console.error("Error fetching student data:", error);
+            }
+        }
+
+        async function fetchSchedule() {
+            try {
+                const res = await fetch(`/api/student/${studentId}/schedule`);
+                const schedule = await res.json();
+
+                const scheduleContainer = document.querySelector(".space-y-4");
+                scheduleContainer.innerHTML = ""; // Clear existing entries
+
+                schedule.forEach(classItem => {
+                    scheduleContainer.innerHTML += `
+                <div class="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-lg">
+                    <div>
+                        <h4 class="font-semibold">${classItem.subject}</h4>
+                        <p class="text-gray-400">${classItem.time}</p>
+                    </div>
+                    <span class="${classItem.status === 'Present' ? 'text-green-500' : 'text-gray-400'}">${classItem.status}</span>
+                </div>`;
+                });
+            } catch (error) {
+                console.error("Error fetching schedule:", error);
+            }
+        }
+
+        async function fetchAttendanceOverview() {
+            try {
+                const res = await fetch(`/api/student/${studentId}/attendance`);
+                const attendanceData = await res.json();
+
+                // Chart Data (Example)
+                const chart = echarts.init(document.getElementById("attendanceChart"));
+                const option = {
+                    series: [{
+                        type: "pie",
+                        data: [
+                            { value: attendanceData.present, name: "Present" },
+                            { value: attendanceData.absent, name: "Absent" },
+                        ]
+                    }]
+                };
+                chart.setOption(option);
+            } catch (error) {
+                console.error("Error fetching attendance:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchStudentData();
+            fetchSchedule();
+            fetchAttendanceOverview();
+        });
+
+    </script>
+</body>
+
+</html>

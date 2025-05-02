@@ -1,0 +1,223 @@
+CREATE TABLE teachers (
+    employee_id VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    designation ENUM('Faculty', 'HOD', 'Registrar', 'Director', 'Admin') NOT NULL
+);
+
+INSERT INTO teachers (employee_id, name, email, password, designation) 
+VALUES 
+('EMP001', 'John Doe', 'johndoe@example.com', 'hashed_password_1', 'Faculty'),
+('EMP002', 'Jane Smith', 'janesmith@example.com', 'hashed_password_2', 'HOD'),
+('EMP003', 'Mark Williams', 'mark@example.com', 'hashed_password_3', 'Registrar'),
+('EMP004', 'Lucy Brown', 'lucy@example.com', 'hashed_password_4', 'Director'),
+('EMP005', 'Admin User', 'admin@example.com', 'hashed_password_5', 'Admin');
+
+
+CREATE TABLE students (
+    student_id VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    roll_no VARCHAR(20) UNIQUE NOT NULL,
+    semester INT NOT NULL,
+    department VARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE attendance (
+    attendance_id INT PRIMARY KEY AUTO_INCREMENT,  -- Unique for each attendance entry
+    roll_number VARCHAR(20) NOT NULL,  -- Student's unique roll number
+    subject_id varchar(20) NOT NULL,  -- The subject for which attendance is recorded
+    date DATE NOT NULL,  -- Attendance date
+    period_id INT NOT NULL,  -- The lecture/practical/skill session number
+    hours_present INT NOT NULL CHECK (hours_present >= 0), -- Hours attended in that session
+    total_hours INT NOT NULL CHECK (total_hours > 0),  -- Total hours for that session
+    FOREIGN KEY (roll_number) REFERENCES students(roll_no),
+    FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
+);
+
+ALTER TABLE students DROP PRIMARY KEY, ADD PRIMARY KEY (roll_no); 
+
+
+INSERT INTO students (roll_no, name, email, semester, department, batch) VALUES
+('CSIT101', 'Aryan Sharma', 'aryan.sharma@example.com', 3, 'Computer Science', '2022-2026'),
+('CSIT102', 'Priya Verma', 'priya.verma@example.com', 3, 'Computer Science', '2022-2026'),
+('CSIT103', 'Rahul Mehta', 'rahul.mehta@example.com', 5, 'Information Technology', '2021-2025'),
+('ME202304', 'Simran Kaur', 'simran.kaur@example.com', 1, 'Mechanical Engineering', '2023-2027'),
+('EE202305', 'Aniket Das', 'aniket.das@example.com', 7, 'Electrical Engineering', '2020-2024');
+
+INSERT INTO departments (dept_name) VALUES
+('CSIT'),
+('B.Sc. Data Science'),
+('Mechatronics');
+
+INSERT INTO parents (name, email, phone, roll_no) VALUES
+('Rajesh Sharma', 'rajesh.sharma@example.com', '9876543210', 'CSIT101'),
+('Sunita Verma', 'sunita.verma@example.com', '8765432109', 'CSIT102'),
+('Manoj Mehta', 'manoj.mehta@example.com', '7654321098', 'CSIT103'),
+('Kavita Kaur', 'kavita.kaur@example.com', '6543210987', 'ME202304'),
+('Suresh Das', 'suresh.das@example.com', '5432109876', 'EE202305');
+
+INSERT INTO subjects (subject_id, subject_name, faculty_id, semester) VALUES
+('CS101', 'Data Structures', 'EMP001', 3),
+('CS102', 'Database Management Systems', 'EMP002', 3),
+('IT201', 'Operating Systems', 'EMP005', 5),
+('ME301', 'Thermodynamics', 'EMP003', 1),
+('EE401', 'Circuit Analysis', 'EMP004', 7);
+
+INSERT INTO attendance (roll_no, subject_id, date, period_id, hours_present, total_hours) VALUES
+('CSIT101', 'CS101', '2025-02-06', 1, 1, 1),
+('CSIT102', 'CS101', '2025-02-06', 2, 2, 2),
+('CSIT103', 'CS102', '2025-02-06', 3, 0, 1),
+('ME202304', 'ME301', '2025-02-06', 1, 0, 1),
+('EE202305', 'EE401', '2025-02-06', 2, 2, 1);
+
+ALTER TABLE attendance
+RENAME COLUMN roll_number to roll_no;
+
+CREATE TABLE timetable (
+    timetable_id INT AUTO_INCREMENT PRIMARY KEY,
+    day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    period_id INT NOT NULL,  -- The lecture/practical/skill session number
+    subject_id VARCHAR(20) NOT NULL,
+    semester INT NOT NULL,
+    batch VARCHAR(10) NOT NULL,
+    employee_id VARCHAR(20) NOT NULL,
+    FOREIGN KEY (subject_id) REFERENCES subjects(subject_id),
+    FOREIGN KEY (employee_id) REFERENCES teachers(employee_id)
+);
+
+INSERT INTO Timetable (subject_id, employee_id, semester, batch, day_of_week, start_time, end_time, period_id) VALUES
+('CS101', 'EMP001', 3, 'A1', 'Monday', '09:00:00', '10:00:00', 1),
+('CS102', 'EMP002', 3, 'A2', 'Monday', '10:00:00', '11:00:00', 2),
+('IT201', 'EMP003', 5, 'A', 'Tuesday', '11:00:00', '12:00:00', 1),
+('IT201', 'EMP004', 5, 'A', 'Wednesday', '13:00:00', '14:00:00', 3),
+('EE401', 'EMP005', 7, 'A', 'Thursday', '14:00:00', '15:00:00', 2),
+('ME301', 'EMP001', 1, 'A2', 'Friday', '09:00:00', '10:00:00', 1);
+
+CREATE TABLE Grades (
+    grade_id INT AUTO_INCREMENT PRIMARY KEY,
+    roll_no VARCHAR(20) NOT NULL,
+    subject_id VARCHAR(20) NOT NULL,
+    marks INT NOT NULL,
+    gpa float(5) NOT NULL,
+    exam_type ENUM('Midterm', 'Endterm', 'Quiz', 'Assignment') NOT NULL,
+    FOREIGN KEY (roll_no) REFERENCES Students(roll_no),
+    FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id)
+);
+
+INSERT INTO Grades (roll_no, subject_id, marks_obt, total_marks, exam_type) VALUES
+('CSIT101', 'CS101', 85, 'A', 'Midterm'),
+('CSIT101', 'CS102', 78, 'B+', 'Endterm'),
+('CSIT102', 'CS101', 92, 'A+', 'Endterm'),
+('CSIT102', 'CS102', 88, 'A', 'Midterm'),
+('CSIT103', 'IT201', 76, 'B', 'Midterm'),
+('EE202305', 'EE401', 89, 'A', 'Assignment'),
+('ME202304', 'ME301', 72, 'B-', 'Endterm');
+
+CREATE TABLE Exam_Grades (
+    grade_id INT AUTO_INCREMENT PRIMARY KEY,
+    roll_no VARCHAR(20) NOT NULL,
+    subject_id VARCHAR(20) NOT NULL,
+    marks_obt INT NOT NULL,
+    total_marks INT NOT NULL,
+    exam_type ENUM('MST1', 'MST2', 'MST3', 'End_Sem') NOT NULL,
+    FOREIGN KEY (roll_no) REFERENCES Students(roll_no),
+    FOREIGN KEY (subject_id) REFERENCES Subjects(subject_id)
+);
+
+INSERT INTO Exam_Grades (roll_no, subject_id, marks_obt, total_marks, exam_type) VALUES
+('CSIT101', 'CS101', 85, 100, 'MST1'),
+('CSIT101', 'CS102', 78, 100, 'End_Sem'),
+('CSIT102', 'CS101', 92, 100, 'End_Sem'),
+('CSIT102', 'CS102', 88, 100, 'MST2'),
+('CSIT103', 'IT201', 76, 100, 'MST2'),
+('EE202305', 'EE401', 89, 100, 'MST1'),
+('ME202304', 'ME301', 72, 100, 'MST3');
+
+
+
+
+PostgreSQL PORT: 5432
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysqldump -u root -p --no-create-info --skip-triggers --complete-insert attendance_system > data.sql
+
+SELECT * FROM department INTO OUTFILE 'D:/Projects/Attendance Management System/Data/'
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n';
+
+
+
+
+
+
+
+
+
+
+DSA: Data Structures and Algorithms
+DBMS: Database Management Systems
+OS: Operating Systems
+Thermo: Thermodynamics
+UI/UX: User Interface and User Experience
+Circuit: Circuit Analysis
+
+
+bubble sort
+selection sort
+insertion sort
+bucket sort
+radix sort
+counting sort
+quick sort
+
+SPARSE Matrix

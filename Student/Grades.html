@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Academic Grades | Student Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#50E3C2', secondary: '#8257E6' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 26, 0.8);
+        }
+
+        .notification-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#1A1A1A] text-white min-h-screen">
+
+    <nav class="fixed top-0 w-full glass-effect z-50">
+        <div class="container mx-auto px-4 sm:px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-['Pacifico'] text-white">logo</div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="..\Student\Dashboard2.html" class="hover:text-[#50E3C2] transition-colors">Home</a>
+                    <a href="..\Student\Reports.html" data-readdy="true"
+                        class="hover:text-[#50E3C2] transition-colors">Reports</a>
+                    <a href="..\Student\Grades.html" class="text-[#50E3C2] transition-colors">Grades</a>
+                    <a href="..\Student\Settings.html" class="hover:text-[#50E3C2] transition-colors">Settings</a>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative cursor-pointer" id="notificationBtn">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-notification-3-line text-xl"></i>
+                            </div>
+                            <div class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full notification-dot"></div>
+                        </div>
+                        <div class="relative cursor-pointer" id="profileBtn">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-user-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:hidden flex items-center space-x-4">
+                    <div class="relative cursor-pointer" id="mobileNotificationBtn">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-notification-3-line text-xl"></i>
+                        </div>
+                        <div class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full notification-dot"></div>
+                    </div>
+                    <div class="relative cursor-pointer" id="mobileMenuBtn">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-menu-line text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-[#232323] w-full">
+            <div class="px-4 py-2 space-y-2">
+                <a href="#" class="block py-2 hover:text-[#50E3C2] transition-colors">Home</a>
+                <a href="https://readdy.ai/home/5e958e85-42be-447b-a7c8-5aeb9f6fc04e/2e1de2b1-229f-4e88-930c-bdcdc0ad9bee"
+                    data-readdy="true" class="block py-2 hover:text-[#50E3C2] transition-colors">Reports</a>
+                <a href="#" class="block py-2 text-[#50E3C2] transition-colors">Grades</a>
+                <a href="#" class="block py-2 hover:text-[#50E3C2] transition-colors">About</a>
+                <a href="#" class="block py-2 hover:text-[#50E3C2] transition-colors">Settings</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 sm:px-6 pt-24">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 space-y-4 sm:space-y-0">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-bold">Academic Grades</h1>
+                <p class="text-gray-400 mt-2">View your academic performance and progress</p>
+            </div>
+            <div class="flex space-x-4 w-full sm:w-auto">
+                <div class="relative flex-1 sm:flex-none">
+                    <select id="semesterSelect"
+                        class="w-full bg-[#232323] px-4 py-2 rounded-button appearance-none pr-8 cursor-pointer">
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                    </select>
+                    <div class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <i class="ri-arrow-down-s-line"></i>
+                    </div>
+                </div>
+                <button
+                    class="flex items-center space-x-2 bg-[#232323] px-4 py-2 rounded-button hover:bg-[#2a2a2a] transition-colors flex-1 sm:flex-none justify-center whitespace-nowrap">
+                    <i class="ri-file-pdf-line"></i>
+                    <span>Export PDF</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-[#232323] p-6 rounded-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold">Current GPA</h3>
+                    <span class="text-2xl font-bold text-primary">8.92</span>
+                </div>
+                <div class="w-full bg-[#1A1A1A] h-2 rounded-full overflow-hidden">
+                    <div class="bg-primary h-full rounded-full" style="width: 89.2%"></div>
+                </div>
+                <p class="text-gray-400 mt-2 text-sm">Semester 4</p>
+            </div>
+
+            <div class="bg-[#232323] p-6 rounded-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold">CGPA</h3>
+                    <span class="text-2xl font-bold text-green-500">8.75</span>
+                </div>
+                <p class="text-gray-400">Overall Performance</p>
+            </div>
+
+            <div class="bg-[#232323] p-6 rounded-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold">Credits</h3>
+                    <span class="text-2xl font-bold text-yellow-500">18/24</span>
+                </div>
+                <div class="w-full bg-[#1A1A1A] h-2 rounded-full overflow-hidden">
+                    <div class="bg-yellow-500 h-full rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-[#232323] p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-6">GPA Trend</h3>
+                <div id="gpaChart" style="height: 300px;"></div>
+            </div>
+
+            <div class="bg-[#232323] p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-6">Grade Distribution</h3>
+                <div id="gradeChart" style="height: 300px;"></div>
+            </div>
+        </div>
+
+        <div class="bg-[#232323] p-6 rounded-lg">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold">Course Grades</h3>
+                <div class="flex space-x-4">
+                    <button class="text-gray-400 hover:text-white transition-colors">
+                        <i class="ri-filter-3-line text-xl"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-white transition-colors">
+                        <i class="ri-search-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-[800px]">
+                    <thead>
+                        <tr class="text-left border-b border-gray-700">
+                            <th class="pb-4">Course Code</th>
+                            <th class="pb-4">Course Name</th>
+                            <th class="pb-4">Credits</th>
+                            <th class="pb-4">MST 1</th>
+                            <th class="pb-4">MST 2</th>
+                            <th class="pb-4">MST 3</th>
+                            <th class="pb-4">Grade</th>
+                            <th class="pb-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="courseTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#232323] mt-16">
+        <div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-[#50E3C2] transition-colors">Academic
+                                Calendar</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#50E3C2] transition-colors">Course Schedule</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-[#50E3C2] transition-colors">Student
+                                Resources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">Email: support@university.edu</li>
+                        <li class="text-gray-400">Phone: (555) 123-4567</li>
+                        <li class="text-gray-400">Address: 123 University Ave</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-[#50E3C2] transition-colors">
+                            <i class="ri-facebook-fill text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-[#50E3C2] transition-colors">
+                            <i class="ri-twitter-fill text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-[#50E3C2] transition-colors">
+                            <i class="ri-instagram-fill text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                © 2025 Student Academic Portal. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+        const mockData = {
+            notifications: [
+                { id: 1, message: "MST 3 grades for Advanced Algorithms have been published", time: "2 hours ago" },
+                { id: 2, message: "New course material available for Database Systems", time: "3 hours ago" },
+                { id: 3, message: "Reminder: Project submission deadline approaching", time: "1 day ago" }
+            ],
+            profile: {
+                name: "Emily Anderson",
+                id: "ST2025042",
+                department: "Computer Science",
+                year: "3rd Year"
+            },
+            courses: [
+                { code: "CS301", name: "Advanced Algorithms", credits: 4, mst1: 8.5, mst2: 9.0, mst3: 8.8, grade: "A", status: "Completed" },
+                { code: "CS302", name: "Database Systems", credits: 4, mst1: 9.2, mst2: 9.5, mst3: 9.0, grade: "A+", status: "Completed" },
+                { code: "CS303", name: "Computer Networks", credits: 3, mst1: 8.0, mst2: 8.5, mst3: 8.2, grade: "A", status: "Completed" },
+                { code: "CS304", name: "Operating Systems", credits: 4, mst1: 7.5, mst2: 8.0, mst3: 8.5, grade: "B+", status: "In Progress" },
+                { code: "CS305", name: "Software Engineering", credits: 3, mst1: 9.0, mst2: 8.8, mst3: 9.2, grade: "A", status: "In Progress" }
+            ]
+        };
+
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.getElementById('notificationBtn').addEventListener('click', function () {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-6 w-80 bg-[#232323] rounded-lg shadow-lg z-50 p-4';
+            notification.innerHTML = `
+<h3 class="font-semibold mb-4">Notifications</h3>
+${mockData.notifications.map(n => `
+<div class="border-b border-gray-700 py-3">
+<p class="text-sm">${n.message}</p>
+<p class="text-xs text-gray-400 mt-1">${n.time}</p>
+</div>
+`).join('')}
+`;
+            document.body.appendChild(notification);
+            document.addEventListener('click', function removeNotification(e) {
+                if (!notification.contains(e.target) && !document.getElementById('notificationBtn').contains(e.target)) {
+                    notification.remove();
+                    document.removeEventListener('click', removeNotification);
+                }
+            });
+        });
+
+        document.getElementById('profileBtn').addEventListener('click', function () {
+            const profile = document.createElement('div');
+            profile.className = 'fixed top-20 right-6 w-64 bg-[#232323] rounded-lg shadow-lg z-50 p-4';
+            profile.innerHTML = `
+<div class="text-center mb-4">
+<div class="w-20 h-20 mx-auto bg-[#50E3C2] rounded-full flex items-center justify-center mb-3">
+<i class="ri-user-line text-3xl"></i>
+</div>
+<h3 class="font-semibold">${mockData.profile.name}</h3>
+<p class="text-sm text-gray-400">${mockData.profile.id}</p>
+</div>
+<div class="space-y-2">
+<p class="text-sm">Department: ${mockData.profile.department}</p>
+<p class="text-sm">Year: ${mockData.profile.year}</p>
+</div>
+<button class="w-full mt-4 bg-red-500 text-white py-2 rounded-button hover:bg-red-600 transition-colors">
+Logout
+</button>
+`;
+            document.body.appendChild(profile);
+            document.addEventListener('click', function removeProfile(e) {
+                if (!profile.contains(e.target) && !document.getElementById('profileBtn').contains(e.target)) {
+                    profile.remove();
+                    document.removeEventListener('click', removeProfile);
+                }
+            });
+        });
+
+        const gpaChart = echarts.init(document.getElementById('gpaChart'));
+        const gpaOption = {
+            animation: false,
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                textStyle: { color: '#1f2937' }
+            },
+            grid: { top: 10, right: 10, bottom: 20, left: 40 },
+            xAxis: {
+                type: 'category',
+                data: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+                axisLine: { lineStyle: { color: '#666' } },
+                axisLabel: { color: '#999' }
+            },
+            yAxis: {
+                type: 'value',
+                min: 0,
+                max: 10,
+                axisLine: { lineStyle: { color: '#666' } },
+                axisLabel: { color: '#999' },
+                splitLine: { lineStyle: { color: '#333' } }
+            },
+            series: [{
+                type: 'line',
+                smooth: true,
+                symbol: 'none',
+                lineStyle: { width: 3, color: 'rgba(87, 181, 231, 1)' },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(87, 181, 231, 0.2)'
+                    }, {
+                        offset: 1,
+                        color: 'rgba(87, 181, 231, 0.0)'
+                    }])
+                },
+                data: [8.2, 8.5, 8.8, 8.92]
+            }]
+        };
+        gpaChart.setOption(gpaOption);
+
+        const gradeChart = echarts.init(document.getElementById('gradeChart'));
+        const gradeOption = {
+            animation: false,
+            tooltip: {
+                trigger: 'item',
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                textStyle: { color: '#1f2937' }
+            },
+            series: [{
+                type: 'pie',
+                radius: ['60%', '80%'],
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#1A1A1A',
+                    borderWidth: 2
+                },
+                label: { show: false },
+                data: [
+                    { value: 3, name: 'A+', itemStyle: { color: 'rgba(87, 181, 231, 1)' } },
+                    { value: 4, name: 'A', itemStyle: { color: 'rgba(141, 211, 199, 1)' } },
+                    { value: 2, name: 'B+', itemStyle: { color: 'rgba(251, 191, 114, 1)' } },
+                    { value: 1, name: 'B', itemStyle: { color: 'rgba(252, 141, 98, 1)' } }
+                ]
+            }]
+        };
+        gradeChart.setOption(gradeOption);
+
+        const courseTable = document.getElementById('courseTable');
+        mockData.courses.forEach(course => {
+            const row = document.createElement('tr');
+            row.className = 'border-b border-gray-700';
+            row.innerHTML = `
+<td class="py-4">${course.code}</td>
+<td class="py-4">${course.name}</td>
+<td class="py-4">${course.credits}</td>
+<td class="py-4">${course.mst1}</td>
+<td class="py-4">${course.mst2}</td>
+<td class="py-4">${course.mst3}</td>
+<td class="py-4">${course.grade}</td>
+<td class="py-4">
+<span class="px-2 py-1 rounded-full text-xs ${course.status === 'Completed' ? 'bg-green-500/20 text-green-500' : 'bg-yellow-500/20 text-yellow-500'
+                }">${course.status}</span>
+</td>
+`;
+            courseTable.appendChild(row);
+        });
+
+        window.addEventListener('resize', function () {
+            gpaChart.resize();
+            gradeChart.resize();
+        });
+    </script>
+</body>
+
+</html>
