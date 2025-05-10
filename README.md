@@ -14,7 +14,13 @@ A full-stack web application for managing student attendance and academic record
 
 
 📷 **Preview Placeholder:**  
-`![Login Page](screenshots/login.mp4)`
+<!-- Embed YouTube video -->
+<p align="center">
+  <a href="https://youtu.be/9S7n6OdoDL0" target="_blank">
+    <img src="https://img.youtu.be/9S7n6OdoDL0/0.jpg" alt="Watch Video" width="600"/>
+  </a>
+</p>
+
 
 ---
 
@@ -26,8 +32,11 @@ A full-stack web application for managing student attendance and academic record
 - 🔐 Access only their own data after login.
 
 📷 **Screenshot Placeholder:**  
-`![Student Dashboard](screenshots/student_dashboard.mp4)`
-
+<p align="center">
+  <a href="https://youtu.be/xCHHfWhJO4w" target="_blank">
+    <img src="https://img.youtu.be/xCHHfWhJO4w/0.jpg" alt="Watch Video" width="600"/>
+  </a>
+</p>
 ---
 
 ### 👨‍🏫 Teacher Module
@@ -39,7 +48,11 @@ A full-stack web application for managing student attendance and academic record
 - 🔐 Access only authorized teacher operations after login.
 
 📷 **Screenshot Placeholder:**  
-`![Teacher Dashboard](screenshots/teacher_dashboard.mp4)`
+<p align="center">
+  <a href="https://youtu.be/0VBIIY0sSDE" target="_blank">
+    <img src="https://img.youtube.com/vi/9S7n6OdoDL0/0.jpg" alt="Watch Video" width="600"/>
+  </a>
+</p>
 
 ---
 
