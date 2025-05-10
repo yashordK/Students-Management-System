@@ -17,7 +17,7 @@ A full-stack web application for managing student attendance and academic record
 <!-- Embed YouTube video -->
 <p align="center">
   <a href="https://youtu.be/9S7n6OdoDL0" target="_blank">
-    <img src="https://img.youtu.be/9S7n6OdoDL0/0.jpg" alt="Watch Video" width="600"/>
+    <img src="https://img.youtube.com/vi/9S7n6OdoDL0/0.jpg" alt="Watch Video" width="600"/>
   </a>
 </p>
 
@@ -34,7 +34,8 @@ A full-stack web application for managing student attendance and academic record
 📷 **Screenshot Placeholder:**  
 <p align="center">
   <a href="https://youtu.be/xCHHfWhJO4w" target="_blank">
-    <img src="https://img.youtu.be/xCHHfWhJO4w/0.jpg" alt="Watch Video" width="600"/>
+    <img src="https://img.youtube.com/vi/xCHHfWhJO4w/0.jpg"
+     alt="Watch Video" width="600"/>
   </a>
 </p>
 ---
@@ -50,7 +51,8 @@ A full-stack web application for managing student attendance and academic record
 📷 **Screenshot Placeholder:**  
 <p align="center">
   <a href="https://youtu.be/0VBIIY0sSDE" target="_blank">
-    <img src="https://img.youtube.com/vi/9S7n6OdoDL0/0.jpg" alt="Watch Video" width="600"/>
+    <img src="https://img.youtube.com/vi/0VBIIY0sSDE/0.jpg"
+     alt="Watch Video" width="600"/>
   </a>
 </p>
 
