@@ -12,6 +12,10 @@ A full-stack web application for managing student attendance and academic record
   - Teachers log in using their **Employee ID (Username)**.
 - Role validation using **JWT tokens** for secure access.
 
+
+📷 **Preview Placeholder:**  
+`![Login Page](screenshots/login.mp4)`
+
 ---
 
 ### 👨‍🎓 Student Module
@@ -22,7 +26,7 @@ A full-stack web application for managing student attendance and academic record
 - 🔐 Access only their own data after login.
 
 📷 **Screenshot Placeholder:**  
-`![Student Dashboard](screenshots/student_dashboard.png)`
+`![Student Dashboard](screenshots/student_dashboard.mp4)`
 
 ---
 
@@ -35,7 +39,7 @@ A full-stack web application for managing student attendance and academic record
 - 🔐 Access only authorized teacher operations after login.
 
 📷 **Screenshot Placeholder:**  
-`![Teacher Dashboard](screenshots/teacher_dashboard.png)`
+`![Teacher Dashboard](screenshots/teacher_dashboard.mp4)`
 
 ---
 
