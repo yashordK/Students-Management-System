@@ -87,7 +87,7 @@ A full-stack web application for managing student attendance and academic record
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/student-attendance-management.git
+git clone https://github.com/yashordK/student-attendance-management.git
 
 # 2. Create a virtual environment
 python -m venv venv
